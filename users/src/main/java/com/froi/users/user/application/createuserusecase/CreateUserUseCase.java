@@ -5,11 +5,17 @@ import com.froi.users.user.common.exceptions.application.DuplicatedEntityExcepti
 import com.froi.users.user.domain.User;
 import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
 import com.froi.users.user.infrastructure.outputadapters.UserDbOutputAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @UseCase
 public class CreateUserUseCase implements CreateUserInputPort {
 
     private UserDbOutputAdapter userDbOutputAdapter;
+
+    @Autowired
+    public CreateUserUseCase(UserDbOutputAdapter userDbOutputAdapter) {
+        this.userDbOutputAdapter = userDbOutputAdapter;
+    }
 
     @Override
     public User createNormalUser(CreateUserRequest createUserRequest) throws DuplicatedEntityException {
