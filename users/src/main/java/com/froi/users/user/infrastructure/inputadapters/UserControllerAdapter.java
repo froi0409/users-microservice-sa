@@ -6,6 +6,7 @@ import com.froi.users.common.WebAdapter;
 import com.froi.users.common.exceptions.application.DuplicatedEntityException;
 import com.froi.users.user.domain.User;
 import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users/v1/users")
 @WebAdapter
+@SecurityRequirement(name = "bearerAuth")
 public class UserControllerAdapter {
     private CreateUserInputPort createUserInputPort;
 

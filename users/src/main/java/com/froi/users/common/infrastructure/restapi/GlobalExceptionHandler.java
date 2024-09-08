@@ -1,4 +1,4 @@
-package com.froi.users.infrastructure.restapi;
+package com.froi.users.common.infrastructure.restapi;
 
 import com.froi.users.common.exceptions.application.DuplicatedEntityException;
 import com.froi.users.user.application.exceptions.InvalidCredentialsException;

@@ -4,6 +4,7 @@ import com.froi.users.user.application.exceptions.InvalidCredentialsException;
 import com.froi.users.user.application.loginusecase.LoginRequest;
 import com.froi.users.user.application.loginusecase.LoginUseCase;
 import com.froi.users.user.infrastructure.inputports.LoginInputPort;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users/v1/auth")
+@SecurityRequirement(name = "bearerAuth")
 public class AuthControllerAdapter {
 
     private LoginInputPort loginInputPort;

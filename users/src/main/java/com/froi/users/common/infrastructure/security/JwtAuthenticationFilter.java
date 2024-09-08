@@ -1,4 +1,4 @@
-package com.froi.users.infrastructure.security;
+package com.froi.users.common.infrastructure.security;
 
 import com.froi.users.user.infrastructure.outputports.JwtOutputPort;
 import jakarta.servlet.FilterChain;
