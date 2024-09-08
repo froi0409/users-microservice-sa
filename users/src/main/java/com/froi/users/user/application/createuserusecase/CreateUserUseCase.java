@@ -7,6 +7,8 @@ import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
 import com.froi.users.user.infrastructure.outputadapters.db.UserDbOutputAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 @UseCase
 public class CreateUserUseCase implements CreateUserInputPort {
 
@@ -28,6 +30,9 @@ public class CreateUserUseCase implements CreateUserInputPort {
 
     @Override
     public User createEmployeeUser(CreateEmployeeUserRequest createEmployeeUserRequest) throws DuplicatedEntityException {
+        System.out.println(createEmployeeUserRequest.getUsername());
+        System.out.println(createEmployeeUserRequest.getEmail());
+        System.out.println(createEmployeeUserRequest.getRole());
         verifyCredentials(createEmployeeUserRequest.getUsername(), createEmployeeUserRequest.getEmail());
 
         User user = createEmployeeUserRequest.toDomain();
@@ -37,12 +42,14 @@ public class CreateUserUseCase implements CreateUserInputPort {
 
     public void verifyCredentials(String username, String email) throws DuplicatedEntityException {
         // Verify if username already exists
-        userDbOutputAdapter.findByUsername(username)
-                .orElseThrow(() -> new DuplicatedEntityException(String.format("Username %s already exists", username)));
+        Optional<User> user = userDbOutputAdapter.findByUsername(username);
+        if (user.isPresent()) {
+            throw new DuplicatedEntityException(String.format("Username %s already exists", username));
+        }
 
-        // Verify if email already exists
-        userDbOutputAdapter.findByEmail(email)
-                .orElseThrow(() -> new DuplicatedEntityException(String.format("Email %s already exists", email)));
-
+        Optional<User> useEmail = userDbOutputAdapter.findByEmail(email);
+        if (useEmail.isPresent()) {
+            throw new DuplicatedEntityException(String.format("Email %s already exists", email));
+        }
     }
 }

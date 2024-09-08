@@ -2,14 +2,18 @@ package com.froi.users.user.infrastructure.outputadapters.jwt;
 
 import com.froi.users.user.domain.UserRoleEnum;
 import com.froi.users.user.infrastructure.outputports.JwtOutputPort;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 @Service
@@ -21,22 +25,31 @@ public class JwtOutputAdapter implements JwtOutputPort {
     @Override
     public String generateToken(String username, UserRoleEnum role) {
         return Jwts.builder()
-                .claim("role", role.toString())
-                .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .claims(Collections.singletonMap("role", role))
+                .subject(username)
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .signWith(getSecretKey())
                 .compact();
     }
 
     @Override
     public String getUsername(String token) {
-        return null;
+        Claims claims = extractClaims(token);
+        return claims.getSubject();
+    }
+
+    @Override
+    public String getRole(String token) {
+        Claims claims = extractClaims(token);
+        return claims.get("role", String.class);
     }
 
     @Override
     public boolean isValid(String token) {
-        return false;
+        Claims claims = extractClaims(token);
+        Date expirationDate = claims.getExpiration();
+        return new Date().before(expirationDate);
     }
 
     @Override
@@ -47,6 +60,19 @@ public class JwtOutputAdapter implements JwtOutputPort {
     @Override
     public boolean isTokenExpired(String username) {
         return false;
+    }
+
+    public SecretKey getSecretKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public Claims extractClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
 }
