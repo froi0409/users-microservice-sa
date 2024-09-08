@@ -1,4 +1,4 @@
-package com.froi.users.user.infrastructure.outputadapters;
+package com.froi.users.user.infrastructure.outputadapters.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

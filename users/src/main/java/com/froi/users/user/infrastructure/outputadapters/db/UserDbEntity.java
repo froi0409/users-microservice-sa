@@ -1,4 +1,4 @@
-package com.froi.users.user.infrastructure.outputadapters;
+package com.froi.users.user.infrastructure.outputadapters.db;
 
 import com.froi.users.user.domain.User;
 import com.froi.users.user.domain.UserRoleEnum;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "user_account", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,7 +38,7 @@ public class UserDbEntity {
     private LocalDate birthDate;
 
     @Column
-    private Integer role;
+    private String role;
 
     @Column(name = "token_expiration")
     private LocalDateTime tokenExpiration;
@@ -54,7 +54,7 @@ public class UserDbEntity {
                 .lastName(lastName)
                 .email(email)
                 .birthDate(birthDate)
-                .role(UserRoleEnum.values()[role])
+                .role(UserRoleEnum.valueOf(role))
                 .tokenExpiration(tokenExpiration)
                 .build();
     }
@@ -66,7 +66,7 @@ public class UserDbEntity {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getBirthDate(),
-                user.getRole().ordinal(),
+                user.getRole().toString(),
                 user.getTokenExpiration(),
                 user.getEmail());
     }

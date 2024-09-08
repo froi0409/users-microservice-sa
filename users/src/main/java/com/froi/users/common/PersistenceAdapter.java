@@ -1,4 +1,4 @@
-package com.froi.users.user.common;
+package com.froi.users.common;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

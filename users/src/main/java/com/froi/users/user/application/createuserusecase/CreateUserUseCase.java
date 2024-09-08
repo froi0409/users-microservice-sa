@@ -1,10 +1,10 @@
 package com.froi.users.user.application.createuserusecase;
 
-import com.froi.users.user.common.UseCase;
-import com.froi.users.user.common.exceptions.application.DuplicatedEntityException;
+import com.froi.users.common.UseCase;
+import com.froi.users.common.exceptions.application.DuplicatedEntityException;
 import com.froi.users.user.domain.User;
 import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
-import com.froi.users.user.infrastructure.outputadapters.UserDbOutputAdapter;
+import com.froi.users.user.infrastructure.outputadapters.db.UserDbOutputAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UseCase

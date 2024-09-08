@@ -1,4 +1,4 @@
-package com.froi.users.user.common;
+package com.froi.users.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

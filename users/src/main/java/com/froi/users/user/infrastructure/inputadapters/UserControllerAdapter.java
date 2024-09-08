@@ -2,8 +2,8 @@ package com.froi.users.user.infrastructure.inputadapters;
 
 import com.froi.users.user.application.createuserusecase.CreateEmployeeUserRequest;
 import com.froi.users.user.application.createuserusecase.CreateUserRequest;
-import com.froi.users.user.common.WebAdapter;
-import com.froi.users.user.common.exceptions.application.DuplicatedEntityException;
+import com.froi.users.common.WebAdapter;
+import com.froi.users.common.exceptions.application.DuplicatedEntityException;
 import com.froi.users.user.domain.User;
 import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
 import org.springframework.beans.factory.annotation.Autowired;

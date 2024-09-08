@@ -1,6 +1,6 @@
 package com.froi.users.user.domain;
 
-import com.froi.users.user.common.DomainEntity;
+import com.froi.users.common.DomainEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +31,19 @@ public class User {
             password = passwordEncoder.encode(password);
         }
     }
+
+    public String setEmployeePassword() {
+        StringBuilder randomPassword = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            randomPassword.append((char) ((int) (Math.random() * 26) + 97));
+        }
+        password = passwordEncoder.encode(randomPassword);
+        return randomPassword.toString();
+    }
+
+    public boolean checkPassword(String password) {
+        return passwordEncoder.matches(password, this.password);
+    }
+
 
 }

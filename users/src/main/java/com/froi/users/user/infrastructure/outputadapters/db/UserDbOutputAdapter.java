@@ -1,6 +1,6 @@
-package com.froi.users.user.infrastructure.outputadapters;
+package com.froi.users.user.infrastructure.outputadapters.db;
 
-import com.froi.users.user.common.PersistenceAdapter;
+import com.froi.users.common.PersistenceAdapter;
 import com.froi.users.user.domain.User;
 import com.froi.users.user.infrastructure.outputports.CreateUserOutputPort;
 import com.froi.users.user.infrastructure.outputports.FindUserOutputPort;
