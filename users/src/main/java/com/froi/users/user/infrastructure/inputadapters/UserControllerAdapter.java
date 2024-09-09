@@ -29,7 +29,6 @@ public class UserControllerAdapter {
     }
 
     @PostMapping("/normal")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<CreateUserResponse> createNormalUser(@RequestBody CreateUserRequest createUserRequest) throws DuplicatedEntityException {
         User user = createUserInputPort.createNormalUser(createUserRequest);
         return ResponseEntity

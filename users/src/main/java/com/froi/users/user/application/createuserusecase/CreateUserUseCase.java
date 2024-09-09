@@ -3,6 +3,7 @@ package com.froi.users.user.application.createuserusecase;
 import com.froi.users.common.UseCase;
 import com.froi.users.common.exceptions.application.DuplicatedEntityException;
 import com.froi.users.user.domain.User;
+import com.froi.users.user.domain.UserRoleEnum;
 import com.froi.users.user.infrastructure.inputports.CreateUserInputPort;
 import com.froi.users.user.infrastructure.outputadapters.db.UserDbOutputAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,12 @@ public class CreateUserUseCase implements CreateUserInputPort {
 
         User user = createUserRequest.toDomain();
         user.encodePassword();
+        user.setRole(UserRoleEnum.USER);
         return userDbOutputAdapter.create(user);
     }
 
     @Override
     public User createEmployeeUser(CreateEmployeeUserRequest createEmployeeUserRequest) throws DuplicatedEntityException {
-        System.out.println(createEmployeeUserRequest.getUsername());
-        System.out.println(createEmployeeUserRequest.getEmail());
-        System.out.println(createEmployeeUserRequest.getRole());
         verifyCredentials(createEmployeeUserRequest.getUsername(), createEmployeeUserRequest.getEmail());
 
         User user = createEmployeeUserRequest.toDomain();
